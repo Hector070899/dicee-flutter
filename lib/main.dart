@@ -4,24 +4,7 @@ import 'dart:math';
 void main() {
   return runApp(
     MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.red,
-        appBar: AppBar(
-          title: Center(
-            child: Text(
-              'Dicee',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-          backgroundColor: Colors.blueGrey,
-        ),
-        body: DicePage(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.autorenew),
-          backgroundColor: Colors.blueGrey,
-        ),
-      ),
+      home: DicePage(),
     ),
   );
 }
@@ -36,39 +19,48 @@ class _DicePageState extends State<DicePage> {
   int rightDiceNumber = 1;
   void sorting() {
     //funcion que sortea de manera random los numeros de los dados
-
     setState(() {
       leftDiceNumber = Random().nextInt(6) + 1;
-      rightDiceNumber = Random().nextInt(6) +
-          1; // como el rango es entre 0 - 5, el +1 permite que nucan caiga 0 y llegue hasta 6
+      rightDiceNumber = Random().nextInt(6) + 1;
     });
+    // como el rango es entre 0 - 5, el +1 permite que nucan caiga 0 y llegue hasta 6;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                sorting();
-              },
-              child: Image.asset(
-                  'images/dice$leftDiceNumber.png'), //se sustituye el valor del dice por un $leftDiceNumber para obtener el valor de random
-            ),
+    return Scaffold(
+      backgroundColor: Colors.red,
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            'Dicee',
+            style: TextStyle(color: Colors.white),
           ),
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                setState(() {
-                  sorting();
-                });
-              },
-              child: Image.asset('images/dice$rightDiceNumber.png'),
+        ),
+        backgroundColor: Colors.blueGrey,
+      ),
+      body: Center(
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset('images/dice$leftDiceNumber.png'),
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset('images/dice$rightDiceNumber.png'),
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: sorting,
+        child: Icon(Icons.autorenew),
+        backgroundColor: Colors.blueGrey,
       ),
     );
   }
